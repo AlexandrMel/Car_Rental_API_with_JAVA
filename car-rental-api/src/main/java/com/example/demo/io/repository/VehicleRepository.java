@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 
 //Instantiating UserRepository that by default will hold CRUD + Pagination operation methods for database manipulations
 @Repository
-public interface VehicleRepository extends CrudRepository<VehicleEntity, Long> {
+public interface VehicleRepository extends PagingAndSortingRepository<VehicleEntity, Long> {
 
 //Adding custom method that will check is the user with this email exists in the database
-	VehicleEntity findByEmail(String email);
+	VehicleEntity findByIsActive(Boolean statement);
 
-	VehicleEntity findByVehicleId(String userId);
+	VehicleEntity findByVehicleId(String vehicleId);
 }

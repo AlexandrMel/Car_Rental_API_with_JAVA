@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 		UserEntity userEntity = new UserEntity();
 		BeanUtils.copyProperties(user, userEntity);
 		// Generate public UserId using custom created Utils class methods
-		String publicUserId = utils.generateUserId(30);
+		String publicUserId = utils.generateId(30);
 		// Setting the new generated userId to the userEntity object using a setter
 		userEntity.setUserId(publicUserId);
 		// Hashing the password before storing into database using BCrypt external
