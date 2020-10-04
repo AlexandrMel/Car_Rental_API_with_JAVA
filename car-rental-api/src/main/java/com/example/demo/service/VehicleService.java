@@ -12,14 +12,14 @@ public interface VehicleService {
 //Default methods that need to be overridden
 	VehicleDto createVehicle(VehicleDto vehicle);
 
-	VehicleDto getActiveVehicle(Boolean statement);
+	List<VehicleDto> getActiveVehicles();
 
-	VehicleDto getVehicleByUserId(String vehicleId);
+	VehicleDto getVehicleById(String vehicleId);
 
 	VehicleDto updateVehicle(String vehicleId, VehicleDto user);
 
 	void deleteVehicle(String vehicleId);
 
-	List<Dto> getVehicles(int page, int limit);
+	List<VehicleDto> getVehicles(int page, int limit);
 
 }

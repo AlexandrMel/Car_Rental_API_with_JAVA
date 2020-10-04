@@ -11,7 +11,6 @@ public class VehicleDetailsRequestModel {
     private Integer productionYear;
     private Double pricePerDay;
     private Integer ageMin;
-    private Boolean isActive;
 
     public String getManufacturerName() {
         return manufacturerName;
@@ -53,11 +52,5 @@ public class VehicleDetailsRequestModel {
         this.ageMin = ageMin;
     }
 
-    public Boolean getActive() {
-        return isActive;
-    }
 
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
 }

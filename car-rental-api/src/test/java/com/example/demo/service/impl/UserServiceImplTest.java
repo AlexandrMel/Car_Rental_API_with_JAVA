@@ -76,7 +76,7 @@ class UserServiceImplTest {
 	final void testCreateUser() {
 
 		when(userRepository.findByEmail(anyString())).thenReturn(null);
-		when(utils.generateUserId(anyInt())).thenReturn(UserId);
+		when(utils.generateId(anyInt())).thenReturn(UserId);
 		when(bCryptPasswordEncoder.encode(anyString())).thenReturn(Password);
 		when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
 

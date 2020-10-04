@@ -15,17 +15,15 @@ public class VehicleDto implements Serializable {
 	private Integer productionYear;
 	private Double pricePerDay;
 	private Integer ageMin;
-	private Boolean isActive;
+	private Boolean active;
 
 	public Boolean getActive() {
-		return isActive;
+		return active;
 	}
 
 	public void setActive(Boolean active) {
-		isActive = active;
+		this.active = active;
 	}
-
-
 
 	public String getVehicleId() {
 		return vehicleId;

@@ -30,11 +30,20 @@ public class VehicleEntity implements Serializable {
     private Integer productionYear;
     @Column(nullable = false, length = 4)
     private Double pricePerDay;
+
+
     @Column(nullable = false, length = 3)
     private Integer ageMin;
     @Column(nullable = false)
-    private Boolean isActive;
+    private Boolean active;
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 
     public String getVehicleId() {
         return vehicleId;
@@ -43,15 +52,6 @@ public class VehicleEntity implements Serializable {
     public void setVehicleId(String vehicleId) {
         this.vehicleId = vehicleId;
     }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
 
 
     public String getManufacturerName() {

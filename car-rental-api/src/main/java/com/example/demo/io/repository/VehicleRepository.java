@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface VehicleRepository extends PagingAndSortingRepository<VehicleEntity, Long> {
 
 //Adding custom method that will check is the user with this email exists in the database
-	VehicleEntity findByIsActive(Boolean statement);
+	VehicleEntity findAllByActive(boolean statement);
 
 	VehicleEntity findByVehicleId(String vehicleId);
 }

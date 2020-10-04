@@ -38,7 +38,7 @@ public class VehicleServiceImpl implements VehicleService {
 //Overriding  methods declared in UserService Class
 	//Create New User in the database
 	@Override
-	public VehicleDto createUser(VehicleDto vehicle) {
+	public VehicleDto createVehicle(VehicleDto vehicle) {
 		// using the custom created method of vehicleRepository class verify if the email
 		// exists in the database and throw an exception with an explanatory message
 		// Instantiating a VehicleEntity object from class and populating with the received
@@ -47,6 +47,7 @@ public class VehicleServiceImpl implements VehicleService {
 		BeanUtils.copyProperties(vehicle, vehicleEntity);
 		// Generate public UserId using custom created Utils class methods
 		String publicVehicleId = utils.generateId(30);
+		vehicleEntity.setActive(false);
 		// Setting the new generated userId to the VehicleEntity object using a setter
 		vehicleEntity.setVehicleId(publicVehicleId);
 		// Hashing the password before storing into database using BCrypt external
@@ -65,23 +66,25 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 // Method to get user details by username, in our case it is the email
+/*
 	@Override
 	public VehicleDto getActiveVehicle(Boolean statement) {
 		// Getting the data from the database
-		VehicleEntity vehicleEntity = vehicleRepository.findByIsActive(statement);
+		VehicleEntity vehicleEntity = vehicleRepository.findByActive(statement);
 		// Throw exception if not found
 		if (vehicleEntity == null)
-			throw new UsernameNotFoundException(statement);
+			throw new UsernameNotFoundException("No active vehicles");
 		// Create populate and return user details object
 		VehicleDto returnValue = new VehicleDto();
 		BeanUtils.copyProperties(vehicleEntity, returnValue);
 		return returnValue;
 	}
+*/
 
 
 //Find a user in the database based on its UserId
 	@Override
-	public VehicleDto getVehicleByUserId(String vehicleId) {
+	public VehicleDto getVehicleById(String vehicleId) {
 		// Getting the data from the database
 		VehicleEntity vehicleEntity = vehicleRepository.findByVehicleId(vehicleId);
 		// Throw exception if not found
@@ -105,7 +108,6 @@ public class VehicleServiceImpl implements VehicleService {
 		vehicleEntity.setProductionYear(vehicle.getProductionYear());
 		vehicleEntity.setPricePerDay(vehicle.getPricePerDay());
 		vehicleEntity.setAgeMin(vehicle.getAgeMin());
-		vehicleEntity.setActive(vehicle.getActive());
 
 		VehicleEntity updatedVehicleDetails = vehicleRepository.save(vehicleEntity);
 		VehicleDto returnValue = new VehicleDto();
@@ -125,7 +127,7 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 //Get all Users from the database with pagination and a limit per page
 	@Override
-	public List<VehicleDto> getUsers(int page, int limit) {
+	public List<VehicleDto> getVehicles(int page, int limit) {
 		List<VehicleDto> returnValue = new ArrayList<>();
 //Fixing 0 index to page 1 for better user experience;
 		if (page > 0)
@@ -145,4 +147,21 @@ public class VehicleServiceImpl implements VehicleService {
 		return returnValue;
 	}
 
+	@Override
+	public List<VehicleDto> getActiveVehicles() {
+		List<VehicleDto> returnValue = new ArrayList<>();
+Boolean statement = false;
+
+//Get List of Users based on the Pageable Object configuration
+		List<VehicleEntity> vehiclePage = vehicleRepository.findAllByActive(false);
+		List<VehicleEntity> vehicle = vehiclePage.getContent();
+//Loop through the list to create returning Array of VehicleDto type
+		for (VehicleEntity vehicleEntity : users) {
+			VehicleDto vehicleDto = new VehicleDto();
+			BeanUtils.copyProperties(vehicleEntity, vehicleDto);
+			returnValue.add(vehicleDto);
+		}
+//Return the List
+		return returnValue;
+	}
 }
